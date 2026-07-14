@@ -1,7 +1,3 @@
-"""
-Shared constants used throughout the Turing Machine simulator.
-"""
-
 BLANK_SYMBOL = "_"
 
 LEFT = "L"
@@ -9,3 +5,6 @@ RIGHT = "R"
 
 ACCEPT = "ACCEPT"
 REJECT = "REJECT"
+TIMEOUT = "TIMEOUT"
+
+DEFAULT_MAX_STEPS = 500
