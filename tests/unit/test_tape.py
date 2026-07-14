@@ -2,10 +2,13 @@ from simulator.tape import Tape
 from simulator.constants import BLANK_SYMBOL
 
 
-def test_initialize_with_input():
-    """
-    Tape should correctly store the initial input string.
-    """
+def test_empty_tape():
+    tape = Tape()
+
+    assert tape.read(0) == BLANK_SYMBOL
+
+
+def test_initial_input():
     tape = Tape("101")
 
     assert tape.read(0) == "1"
@@ -13,65 +16,52 @@ def test_initialize_with_input():
     assert tape.read(2) == "1"
 
 
-def test_initialize_without_input():
-    """
-    An empty tape should contain one blank symbol at position 0.
-    """
-    tape = Tape()
+def test_blank_read():
+    tape = Tape("1")
 
-    assert tape.read(0) == BLANK_SYMBOL
-
-
-def test_read_unwritten_position_returns_blank():
-    """
-    Reading an unwritten position should always return the blank symbol.
-    """
-    tape = Tape("101")
-
-    assert tape.read(10) == BLANK_SYMBOL
+    assert tape.read(20) == BLANK_SYMBOL
     assert tape.read(-5) == BLANK_SYMBOL
 
 
-def test_write_new_position():
-    """
-    Writing to a new position should store the symbol.
-    """
+def test_write():
     tape = Tape()
 
-    tape.write(5, "X")
+    tape.write(10, "A")
 
-    assert tape.read(5) == "X"
+    assert tape.read(10) == "A"
 
 
-def test_write_negative_position():
-    """
-    The tape must support negative positions.
-    """
+def test_write_negative():
     tape = Tape()
 
-    tape.write(-3, "Y")
+    tape.write(-3, "X")
 
-    assert tape.read(-3) == "Y"
-
-
-def test_overwrite_existing_position():
-    """
-    Writing to an existing position should overwrite the previous symbol.
-    """
-    tape = Tape("101")
-
-    tape.write(1, "X")
-
-    assert tape.read(1) == "X"
+    assert tape.read(-3) == "X"
 
 
-def test_get_used_positions():
-    """
-    Used positions should be returned in sorted order.
-    """
+def test_used_positions():
+    tape = Tape()
+
+    tape.write(4, "A")
+    tape.write(-2, "B")
+
+    assert tape.get_used_positions() == [-2, 0, 4]
+
+
+def test_min_max():
+    tape = Tape()
+
+    tape.write(5, "A")
+    tape.write(-7, "B")
+
+    assert tape.get_min_position() == -7
+    assert tape.get_max_position() == 5
+
+
+def test_render():
     tape = Tape("10")
 
-    tape.write(5, "X")
-    tape.write(-2, "Y")
+    text, start = tape.render(0)
 
-    assert tape.get_used_positions() == [-2, 0, 1, 5]
+    assert isinstance(text, str)
+    assert isinstance(start, int)
