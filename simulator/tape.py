@@ -55,9 +55,11 @@ class Tape:
         the first tape position displayed.
         """
 
-        start = min(self.get_min_position(), head_position - 2)
+        # Show negative positions only if they have actually been used
+        start = min(0, self.get_min_position())
 
-        end = max(self.get_max_position(), head_position + 2)
+        # Show tape up to the furthest written cell or head position
+        end = max(head_position, self.get_max_position())
 
         symbols = []
 
