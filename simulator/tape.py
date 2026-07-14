@@ -10,7 +10,7 @@ class Tape:
     """
 
     def __init__(self, input_string: str = ""):
-        self.cells = {}
+        self.cells: dict[int, str] = {}
 
         if input_string:
             for index, symbol in enumerate(input_string):
@@ -31,8 +31,37 @@ class Tape:
         """
         self.cells[position] = symbol
 
-    def get_used_positions(self):
+    def get_used_positions(self) -> list[int]:
         """
         Return all positions that have been written to.
         """
         return sorted(self.cells.keys())
+
+    def get_min_position(self) -> int:
+        """
+        Return the smallest used tape position.
+        """
+        return min(self.cells.keys())
+
+    def get_max_position(self) -> int:
+        """
+        Return the largest used tape position.
+        """
+        return max(self.cells.keys())
+
+    def render(self, head_position: int) -> tuple[str, int]:
+        """
+        Return the tape as a printable string and
+        the first tape position displayed.
+        """
+
+        start = min(self.get_min_position(), head_position - 2)
+
+        end = max(self.get_max_position(), head_position + 2)
+
+        symbols = []
+
+        for position in range(start, end + 1):
+            symbols.append(self.read(position))
+
+        return " ".join(symbols), start
