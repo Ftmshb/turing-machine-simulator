@@ -128,22 +128,37 @@ class TuringMachine:
         Display the current machine configuration.
         """
 
-        tape_string, start_position = self.tape.render(
-            self.head.position
-        )
+        tape_string, start_position = self.tape.render(self.head.position)
+
+        symbols = tape_string.split()
 
         print(f"Step: {self.step_count}")
         print(f"State: {self.current_state.name}")
         print()
 
+        # Print tape indices
+        print("Index:")
+        indices = " ".join(
+            str(i) for i in range(start_position, start_position + len(symbols))
+        )
+        print(indices)
+
+        # Print tape symbols
         print("Tape:")
         print(tape_string)
 
+        # Print head pointer
         head_offset = self.head.position - start_position
 
-        pointer = "  " * head_offset + "^"
+        pointer = []
 
-        print(pointer)
+        for i in range(len(symbols)):
+            if i == head_offset:
+                pointer.append("^")
+            else:
+                pointer.append(" ")
+
+        print(" ".join(pointer))
         print()
 
         print(f"Head Position: {self.head.position}")
@@ -167,7 +182,6 @@ class TuringMachine:
             return TIMEOUT
 
         return None
-
 
     def run(self) -> str:
         """
