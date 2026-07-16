@@ -1,4 +1,4 @@
-from simulator.constants import BLANK_SYMBOL
+from simulator.constants import DEFAULT_BLANK_SYMBOL
 
 
 class Tape:
@@ -8,10 +8,17 @@ class Tape:
     The tape is implemented using a dictionary, allowing
     infinite expansion in both directions.
     """
-    def __init__(self, input_string: str = ""):
+
+    def __init__(
+        self,
+        input_string: str = "",
+        blank_symbol: str = DEFAULT_BLANK_SYMBOL,
+    ):
 
         if not isinstance(input_string, str):
             raise TypeError("Input must be a string.")
+
+        self.blank_symbol = blank_symbol
 
         self.cells: dict[int, str] = {}
 
@@ -19,19 +26,19 @@ class Tape:
             for index, symbol in enumerate(input_string):
                 self.cells[index] = symbol
         else:
-            self.cells[0] = BLANK_SYMBOL
+            self.cells[0] = self.blank_symbol
 
     def read(self, position: int) -> str:
         """
         Read the symbol at the specified position.
         Returns the blank symbol if the position has not been written.
         """
-        return self.cells.get(position, BLANK_SYMBOL)
+        return self.cells.get(position, self.blank_symbol)
 
     def write(self, position: int, symbol: str) -> None:
-        """
-        Write a symbol to the specified position.
-        """
+        if len(symbol) != 1:
+            raise ValueError("Tape symbols must be single characters.")
+
         self.cells[position] = symbol
 
     def get_used_positions(self) -> list[int]:
