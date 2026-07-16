@@ -66,6 +66,9 @@ class TuringMachine:
         if not tape_alphabet:
             raise ValueError("Tape alphabet cannot be empty.")
 
+        if tape.blank_symbol not in tape_alphabet:
+            raise ValueError("Blank symbol must belong to tape alphabet.")
+
         # The input alphabet must be a subset of the tape alphabet
         if not input_alphabet.issubset(tape_alphabet):
             raise ValueError("Input alphabet must be a subset of tape alphabet.")
@@ -100,6 +103,14 @@ class TuringMachine:
         self.current_state = start_state
 
         self.tape = tape
+        self.blank_symbol = tape.blank_symbol
+
+        input_string = "".join(
+            tape.read(position) for position in tape.get_used_positions()
+        )
+
+        self.validate_input(input_string)
+
         self.head = head
 
         self.max_steps = max_steps
@@ -107,10 +118,13 @@ class TuringMachine:
 
     def validate_input(self, input_string: str) -> None:
         """
-        Validate input string according to Σ.
+        Validate input string according to the input alphabet.
         """
 
         for symbol in input_string:
+
+            if symbol == self.blank_symbol:
+                raise ValueError("Input cannot contain the blank symbol.")
 
             if symbol not in self.input_alphabet:
                 raise ValueError(f"Invalid input symbol: {symbol}")
