@@ -146,7 +146,18 @@ class TuringMachine:
 
         # Validate written symbol
         if transition.write_symbol not in self.tape_alphabet:
-            raise ValueError(f"Invalid tape symbol: " f"{transition.write_symbol}")
+            raise ValueError(f"Invalid tape symbol: {transition.write_symbol}")
+
+        print("Transition:")
+        print(
+            f"({transition.current_state}, "
+            f"{transition.current_symbol}) "
+            f"--> "
+            f"({transition.next_state}, "
+            f"{transition.write_symbol}, "
+            f"{transition.direction})"
+        )
+        print()
 
         # Write symbol
         self.tape.write(
