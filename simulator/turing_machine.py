@@ -39,6 +39,15 @@ class TuringMachine:
             head: Machine head.
             max_steps: Maximum allowed execution steps.
         """
+        if max_steps <= 0:
+            raise ValueError("max_steps must be greater than zero.")
+
+        if start_state.name not in states:
+            raise ValueError("Start state must exist in states.")
+
+        for transition in transitions.values():
+            if transition.next_state not in states:
+                raise ValueError(f"Undefined next state: {transition.next_state}")
 
         self.states = states
         self.transitions = transitions
