@@ -1,4 +1,4 @@
-BLANK_SYMBOL = "_"
+DEFAULT_BLANK_SYMBOL = "_"
 
 LEFT = "L"
 RIGHT = "R"
