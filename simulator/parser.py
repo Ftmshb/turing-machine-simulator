@@ -11,6 +11,9 @@ class Parser:
 
         self.file_path = file_path
         self.data = self.load_json()
+        self.input_alphabet = self.data["input_alphabet"]
+        self.tape_alphabet = self.data["tape_alphabet"]
+        self.blank_symbol = self.data["blank_symbol"]
 
         self.states = {}
         self.transitions = {}
@@ -23,7 +26,7 @@ class Parser:
             return json.load(json_file)
 
     def parse_states(self) -> None:
-        """Create State objects."""
+        """Create State objects from the JSON description."""
 
         accept_states = set(self.data["accept_states"])
         reject_states = set(self.data["reject_states"])
