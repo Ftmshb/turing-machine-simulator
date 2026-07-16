@@ -8,8 +8,11 @@ class Tape:
     The tape is implemented using a dictionary, allowing
     infinite expansion in both directions.
     """
-
     def __init__(self, input_string: str = ""):
+
+        if not isinstance(input_string, str):
+            raise TypeError("Input must be a string.")
+
         self.cells: dict[int, str] = {}
 
         if input_string:
