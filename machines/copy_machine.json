@@ -352,7 +352,7 @@
             "read": "G",
             "next_state": "qAccept",
             "write": "G",
-            "move": "R"
+            "move": "L"
         }
     ]
 }
