@@ -24,7 +24,6 @@ def main():
             input_path = f"tests/{test_file}"
 
             parser = Parser(JSON_PATH)
-
             (
                 states,
                 transitions,
