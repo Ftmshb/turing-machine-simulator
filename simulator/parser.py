@@ -11,22 +11,23 @@ class Parser:
 
         self.file_path = file_path
         self.data = self.load_json()
-        self.input_alphabet = self.data["input_alphabet"]
-        self.tape_alphabet = self.data["tape_alphabet"]
+
+        self.input_alphabet = set(self.data["input_alphabet"])
+        self.tape_alphabet = set(self.data["tape_alphabet"])
         self.blank_symbol = self.data["blank_symbol"]
 
-        self.states = {}
-        self.transitions = {}
-        self.start_state = None
+        self.states: dict[str, State] = {}
+        self.transitions: dict[tuple[str, str], Transition] = {}
+        self.start_state: State | None = None
 
     def load_json(self) -> dict:
-        """Load a JSON file."""
+        """Load the JSON machine description."""
 
         with open(self.file_path, "r", encoding="utf-8") as json_file:
             return json.load(json_file)
 
     def parse_states(self) -> None:
-        """Create State objects from the JSON description."""
+        """Create State objects."""
 
         accept_states = set(self.data["accept_states"])
         reject_states = set(self.data["reject_states"])
@@ -64,6 +65,8 @@ class Parser:
         dict[str, State],
         dict[tuple[str, str], Transition],
         State,
+        set[str],
+        set[str],
     ]:
         """Parse the complete Turing Machine."""
 
@@ -76,4 +79,6 @@ class Parser:
             self.states,
             self.transitions,
             self.start_state,
+            self.input_alphabet,
+            self.tape_alphabet,
         )
