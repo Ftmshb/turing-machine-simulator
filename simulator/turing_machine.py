@@ -105,12 +105,6 @@ class TuringMachine:
         self.tape = tape
         self.blank_symbol = tape.blank_symbol
 
-        input_string = "".join(
-            tape.read(position) for position in tape.get_used_positions()
-        )
-
-        self.validate_input(input_string)
-
         self.head = head
 
         self.max_steps = max_steps
