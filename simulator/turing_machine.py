@@ -110,19 +110,6 @@ class TuringMachine:
         self.max_steps = max_steps
         self.step_count = 0
 
-    def validate_input(self, input_string: str) -> None:
-        """
-        Validate input string according to the input alphabet.
-        """
-
-        for symbol in input_string:
-
-            if symbol == self.blank_symbol:
-                raise ValueError("Input cannot contain the blank symbol.")
-
-            if symbol not in self.input_alphabet:
-                raise ValueError(f"Invalid input symbol: {symbol}")
-
     def get_current_symbol(self) -> str:
         """
         Return symbol under the head.
@@ -151,10 +138,6 @@ class TuringMachine:
 
         if transition is None:
             return False
-
-        # Validate written symbol
-        if transition.write_symbol not in self.tape_alphabet:
-            raise ValueError(f"Invalid tape symbol: {transition.write_symbol}")
 
         print("Transition:")
         print(
