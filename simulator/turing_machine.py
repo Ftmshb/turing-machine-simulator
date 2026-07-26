@@ -49,7 +49,7 @@ class TuringMachine:
             max_steps: Maximum execution steps.
         """
 
-        # ---------------- Validation ----------------
+        # Validation
 
         if max_steps <= 0:
             raise ValueError("max_steps must be greater than zero.")
@@ -92,7 +92,7 @@ class TuringMachine:
             if transition.write_symbol not in tape_alphabet:
                 raise ValueError(f"Invalid write symbol: " f"{transition.write_symbol}")
 
-        # ---------------- Store machine ----------------
+        # Store machine
 
         self.states = states
         self.transitions = transitions
