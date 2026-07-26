@@ -106,8 +106,22 @@ Enter test file name (e.g. test1.txt): invalid02_missing_S.txt
 Step: 0
 State: qStart
 
-...
+Tape:
+1 0 # X X _ _ G
+^              
 
+Head Position: 0
+
+...
+Step: 17
+State: qReturn
+
+Tape:
+B 0 # 1 X X _ G
+
+Head Position: -1
+
+... 
 No valid transition found.
 Machine Rejected.
 ```
@@ -123,5 +137,8 @@ Machine Rejected.
 ---
 
 ## Authors
+
+- Fatemeh Shabani
+- Zeinab Khalili
 
 Automata Theory Course Project
