@@ -133,7 +133,7 @@ class TuringMachine:
         """
         Execute one transition.
         """
-
+        
         transition = self.find_transition()
 
         if transition is None:
